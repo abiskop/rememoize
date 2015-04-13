@@ -4,7 +4,7 @@
   "description": "Memoize results of async functions and refresh them in background.",
   "main": "index.js",
   "scripts": {
-    "test": "node_modules/.bin/mocha -t 5000 -R spec test"
+    "test": "node_modules/.bin/mocha -t 5000 -R spec test/suite.js"
   },
   "keywords": [
     "async",
@@ -13,5 +13,8 @@
     "refresh"
   ],
   "author": "Alexander Biskop",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "async": "^0.9.0"
+  }
 }
