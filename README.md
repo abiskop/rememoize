@@ -1,5 +1,7 @@
-# rememoize
+# rememoize*
 Memoize results of async functions and refresh them periodically in background.
+
+\* May contain traces of sin and unicorn tears.
 
 
 ## Installation
@@ -51,7 +53,3 @@ rememoizedFunction(function(err, result) {
   console.log('Got result:', result)
 })
 ```
-
-## To Do
-
-- More tests, esp. for edge cases
