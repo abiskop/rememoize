@@ -28,7 +28,7 @@ Argument `options` is optional and may specify the following values:
 ```
 
 - `initialValue`  If set, specifies an initial value that will be returned immediately on first call to rememoized function. If not set, initial calls will be queued up until first iteration has completed.
-- `refreshInterval`  If set, specifies the interval at which the rememoized function will be refreshed in background. If not, the given async function will only be called once and it's result cached.
+- `refreshInterval`  If set, specifies the interval at which the rememoized function will be refreshed in background. If not, the given async function will only be called once (and it's result will be cached).
 
 
 ## Examples
