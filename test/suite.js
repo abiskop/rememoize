@@ -148,4 +148,36 @@ describe('rememoize', function() {
       }, 1000)
     })
   })
+  it('should call given async func on first call to rememoized func', function(done) {
+    var wasCalled = false
+    var myFunc = function(cb) {
+      wasCalled = true
+      cb()
+    }
+    var memoizedFunc = rememoize(myFunc, {})
+    assert.equal(wasCalled, false)
+    memoizedFunc(function(err, value) {
+      assert.equal(wasCalled, true)
+      done()
+    })
+  })
+  it('should call given async again if error returned from first iteration', function(done) {
+    var callCount = 0
+    var myFunc = function(cb) {
+      callCount++
+      cb(new Error('oh noes ' + callCount))
+    }
+    var memoizedFunc = rememoize(myFunc, {})
+    memoizedFunc(function(err, value) {
+      assert.ok(err)
+      assert.equal(err.message, 'oh noes 1')
+      assert.equal(callCount, 1)
+      memoizedFunc(function(err, value) {
+        assert.ok(err)
+        assert.equal(callCount, 2)
+        assert.equal(err.message, 'oh noes 2')
+        done()
+      })
+    })
+  })
 })
