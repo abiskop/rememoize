@@ -64,13 +64,16 @@ describe('rememoize', function() {
     ], done)
   })
   it('should auto-refresh', function(done) {
-    var expectedFirst = 1
-    var expectedSecond = 2
+    var expectedFirst = 'foo1'
+    var expectedSecond = 'foo2'
+    var isFirstRun = true
     var myFunc = function(cb) {
-      var i = 0
       setTimeout(function() {
-        i++
-        cb(null, i)
+        if (isFirstRun) {
+          isFirstRun = false
+          return cb(null, 'foo1')
+        }
+        cb(null, 'foo2')
       }, 200)
     }
     var memoizedFunc = rememoize(myFunc, {
@@ -83,6 +86,63 @@ describe('rememoize', function() {
         memoizedFunc(function(err, value) {
           assert.ok(!err)
           assert.equal(value, expectedSecond)
+          done()
+        })
+      }, 1000)
+    })
+  })
+  it('should pass last error to callback when an error occurs during refresh, as long as no value is available', function(done) {
+    var expectedValue = 'foo1'
+    var isFirstRun = true
+    var myFunc = function(cb) {
+      setTimeout(function() {
+        if (isFirstRun) {
+          isFirstRun = false
+          return cb(null, 'foo1')
+        }
+        cb(new Error('oh noes'))
+      }, 200)
+    }
+    var memoizedFunc = rememoize(myFunc, {
+      refreshInterval: 100
+    })
+    memoizedFunc(function(err, value) {
+      assert.ok(!err)
+      assert.equal(value, expectedValue)
+      setTimeout(function() {
+        memoizedFunc(function(err, value) {
+          assert.ok(err)
+          setTimeout(function() {
+            memoizedFunc(function(err, value) {
+              assert.ok(err)
+              done()
+            })
+          }, 1000)
+        })
+      }, 1000)
+    })
+  })
+  it('should pass last error to callback when an error occurs during refresh', function(done) {
+    var expectedValue = 'foo1'
+    var isFirstRun = true
+    var myFunc = function(cb) {
+      setTimeout(function() {
+        if (isFirstRun) {
+          isFirstRun = false
+          return cb(null, 'foo1')
+        }
+        cb(new Error('oh noes'))
+      }, 200)
+    }
+    var memoizedFunc = rememoize(myFunc, {
+      refreshInterval: 100
+    })
+    memoizedFunc(function(err, value) {
+      assert.ok(!err)
+      assert.equal(value, expectedValue)
+      setTimeout(function() {
+        memoizedFunc(function(err, value) {
+          assert.ok(err)
           done()
         })
       }, 1000)

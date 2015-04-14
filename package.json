@@ -1,20 +1,28 @@
 {
   "name": "rememoize",
   "version": "0.0.1",
-  "description": "Memoize results of async functions and refresh them in background.",
+  "description": "Memoize results of async functions and refresh them periodically in background.",
   "main": "index.js",
   "scripts": {
-    "test": "node_modules/.bin/mocha -t 5000 -R spec test/suite.js"
+    "test": "mocha -t 5000 -R spec test/suite.js"
   },
   "keywords": [
     "async",
     "memoize",
     "cache",
-    "refresh"
+    "refresh",
+    "remember",
+    "function"
   ],
   "author": "Alexander Biskop",
-  "license": "ISC",
+  "license": "MIT",
   "devDependencies": {
+    "async": "^0.9.0"
+  },
+  "directories": {
+    "test": "test"
+  },
+  "dependencies": {
     "async": "^0.9.0"
   }
 }
