@@ -4,7 +4,7 @@
   "description": "Memoize results of async functions and refresh them periodically in background.",
   "main": "index.js",
   "scripts": {
-    "test": "mocha -t 5000 -R spec test/suite.js"
+    "test": "node_modules/.bin/mocha -t 5000 -R spec test/suite.js"
   },
   "keywords": [
     "async",
@@ -17,14 +17,13 @@
   "author": "Alexander Biskop",
   "license": "MIT",
   "devDependencies": {
-    "async": "^0.9.0"
+    "async": "^0.9.0",
+    "mocha": "^2.2.4"
   },
   "directories": {
     "test": "test"
   },
-  "dependencies": {
-    "async": "^0.9.0"
-  },
+  "dependencies": {},
   "repository": {
     "type": "git",
     "url": "https://github.com/abiskop/rememoize.git"
