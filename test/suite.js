@@ -23,7 +23,9 @@ describe('rememoize', function() {
   })
   it('should queue up calls while refreshing initially', function(done) {
     var expected = 'foo1'
+    var callCount = 0
     var myFunc = function(cb) {
+      callCount++
       setTimeout(function() {
         cb(null, 'foo1')
       }, 1000)
@@ -35,6 +37,7 @@ describe('rememoize', function() {
       memoizedFunc
     ], function(err, results) {
       assert.ok(!err)
+      assert.equal(callCount, 1)
       results.forEach(function(value) {
         assert.equal(value, expected)
       })
