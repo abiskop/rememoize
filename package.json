@@ -1,6 +1,6 @@
 {
   "name": "rememoize",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Memoize results of async functions and refresh them periodically in background.",
   "main": "index.js",
   "scripts": {
